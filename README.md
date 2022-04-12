@@ -26,10 +26,27 @@ The table below compares TI inventory and also Mouser and Digikey (two biggest g
 | CC1200 | 7990 | $1.928 | 0 | $5.42 | 0 | $6.48 |
 | CC1100E | 0 | $1.139 | CC1100ERGPT - 57 | $3.84 | CC1100ERGPT - 149 | $3.83 |
 
+Note : research done in April, 12th. 
+https://www.ti.com/wireless-connectivity/products.html 
+https://br.mouser.com/
+https://www.digikey.com
+
+Now, let's compare Technologies. Note: values from TI site - production details (datasheet may show accurate data and were not considered, since it consumes a lot of time).
+
+| Part Number | Available devkit? | Microcontroller | Peripherals | Memory | Power (active mode/standby mode/transmission mode*) |
+|------|------|------|------|------|------|
+| CC1311P3 | Not found | 48-MHz Arm Cortex-M4 processor | 1 SPI, 1 UART, 12-bit ADC 8-channel, 2 comparators, 4 timers, I2C, I2S, 26 GPIO | 32 KB RAM + 352 KB flash | 2.63 mA/ 0.7 uA / 65 mA |
+| CC1312R7 | LP-CC1312R7 (10 - $69.94) | 48-MHz Arm® Cortex®-M4F processor | 12-bit ADC 8-channel, 2 SPI, 2 UART, 2 comparators, 4 timers, 8-bit DAC, I2C, I2S, Sensor controller, 30 GPIO | 256 KB ROM+ 704 KB flash | 2.63 mA/ 0.8 uA / 24.9 mA |
+| CC1352P | LAUNCHXL-CC1352P1 (183 - $66.49)  | 48-MHz Arm Cortex-M4F processor | 2 SPI, 2 UART, 2 comparators, 4 timers, 8-bit DAC, I2S, Sensor controller, 26 GPIO | 256 KB ROM + 352 KB flash | 5.8 mA/ 0.85 uA / 24.9 mA |
+| CC1312R | LAUNCHXL-CC1312R1 (85 - $53.19) | 48-MHz Arm Cortex-M4F processor | 2 SPI, 2 UART, 2 comparators, 4 timers, 12-bit ADC, I2S, Sensor controller, 30 GPIO | 80KB SRAM + 256 KB ROM + 352 KB flash | 5.8 mA/ 0.85 uA / 24.9 mA |
+| CC430F5143 | Not found | True System-on-Chip (SoC) for Low-Power Wireless Communication Applications / 16-Bit RISC Architecture | I2C, UART,  2x SPI, 2 timers, 10-bit ADC | 4 KB RAM +  32 KB flash | 160 uA / 2 uA/ 15 mA |
+| CC1350 | CC1350STKUS (82 - $78.47) LAUNCHXL-CC1350US (22 - $38.57) | 48-MHz Arm® Cortex®-M3 Processor | 1 UART, 12-bit ADC 8-channel, 2 SPI, 2 comparators, 4 timers, I2C, I2S, Sensor controller, GPIO according to package (10, 15 or 30) | 28KB SRAM + 128 KB flash | 5.4 mA/ 0.7 uA/ 13.4 mA |
+| CC1310 | LAUNCHXL-CC1310 (122 - $38.57) | 48-MHz Arm® Cortex®-M3 | 1 UART, 12-bit ADC 8-channel, 2 SPI, 2 comparators, 4 timers, I2C, I2S, Sensor controller, GPIO according to package (10, 15 or 30) | 28 KB SRAM + 128 KB flash | 5.4 mA/ 0.7 uA/ 13.4 mA |
+
+Note : To have an available devkit helps development tasks (once production firmware may start together with hardware development and even help to find issues).  Let's not forget of the  time to market..
+
 Links: 
-
 https://training.ti.com/ti-simplelink-sub-1-ghz-wireless-solutions-iot-technical-introduction-level-1
-
-
 https://www.ti.com/design-resources/embedded-development/wireless-connectivity.html
+
 
