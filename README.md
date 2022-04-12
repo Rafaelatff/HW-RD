@@ -26,7 +26,7 @@ The table below compares TI inventory and also Mouser and Digikey (two biggest g
 | CC1200 | 7990 | $1.928 | 0 | $5.42 | 0 | $6.48 |
 | CC1100E | 0 | $1.139 | CC1100ERGPT - 57 | $3.84 | CC1100ERGPT - 149 | $3.83 |
 
-Note : research done in April, 12th. 
+Note : research done in April, 11th. 
 https://www.ti.com/wireless-connectivity/products.html 
 https://br.mouser.com/
 https://www.digikey.com
