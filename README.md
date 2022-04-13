@@ -5,7 +5,7 @@ TRACTIAN challenge - Hardware R&amp;D
 
 ## Step 1: Scketch it up! 
 
-**1.1 - Let's find the main component**
+**1.1 - Let's find the main wireless component**
 
 The preference for manufacturer goes to Texas Instruments due its good variety of components, good documentation, tools for simulation and development. 
 
@@ -59,13 +59,17 @@ Function and characteristics: filter and regulate battery voltage; low LDO; low 
 
 Function and characteristics: control and manage secondary tasks; comunicate with wireless microcontroller; low power;
 
+PN: MSP430FR2476 Mnf: Texas Instruments Datasheet: www.ti.com/lit/ds/symlink/msp430fr2476.pdf
+
 **1.2.3 - External memory or microSD card**
 
 Function and characteristics: accomodate data; save logs; SPI communication;
 
-**1.2.4 - RTC**
+**1.2.4 - External RTC**
 
-Function and characteristics: keeps track of the current time; low power;
+Function and characteristics: keeps track of the current time; low power; I2C communication;
+
+PN: DS3231S# Mnf: Maxim Integrated Datasheet: https://datasheets.maximintegrated.com/en/ds/DS3231.pdf
 
 **1.2.5 - Accelerometer**
 
