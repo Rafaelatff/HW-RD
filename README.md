@@ -81,12 +81,14 @@ Function and characteristics: 3.6 V;
 
 ## Step 2: It’s layout time
 
-For Altium project ->
-For 3D project -> 
+For Altium project -> HW-RD/tree/main/Altium%20Project
+
+For 3D project -> HW-RD/tree/main/3D%20files
 
 Antenna guidelines: https://www.ti.com/lit/an/swra726/swra726.pdf
 
 ## Step 3: Write some code!
 
-For CC1310 code ->
+For CC1310 code -> HW-RD/tree/main/CC1310
+
 For MSP430 code -> HW-RD/tree/main/MSP430 
