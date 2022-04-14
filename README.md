@@ -47,7 +47,47 @@ Note : To have an available devkit helps development tasks (once production firm
 
 Links: 
 https://training.ti.com/ti-simplelink-sub-1-ghz-wireless-solutions-iot-technical-introduction-level-1
+
 https://www.ti.com/design-resources/embedded-development/wireless-connectivity.html
+
+CC1310 User guide: https://www.ti.com/lit/ug/swcu117i/swcu117i.pdf
+
+CC1310 Datasheet: https://www.ti.com/lit/ds/symlink/cc1310.pdf
+
+**Pin mapping - RSM Package**
+
+| Pin name | Pin number | Type | Description | 
+|------|------|------|------|
+| DCDC_SW | 18 | Power | Output from internal DC/DC |
+| DCOUPL | 12 | Power | 1.27-V regulated digital-supply decoupling capacitor |
+| DIO_0 | 8 | Digital I/O | GPIO, Sensor Controller, high-drive capability |
+| DIO_1 | 9 | Digital I/O | GPIO, Sensor Controller, high-drive capability |
+| DIO_2 | 10 | Digital I/O | GPIO, Sensor Controller, high-drive capability |
+| DIO_3 | 15 | Digital I/O | GPIO, high-drive capability, JTAG_TDO |
+| DIO_4 | 16 | Digital I/O | GPIO, high-drive capability, JTAG_TDI |
+| DIO_5 | 22 | Digital or analog I/O | GPIO, Sensor Controller, analog |
+| DIO_6 | 23 | Digital or analog I/O | GPIO, Sensor Controller, analog |
+| DIO_7 | 24 | Digital or analog I/O | GPIO, Sensor Controller, analog |
+| DIO_8 | 25 | Digital or analog I/O | GPIO, Sensor Controller, analog |
+| DIO_9 | 26 | Digital or analog I/O | GPIO, Sensor Controller, analog |
+| EGP | - | Power | Ground; exposed ground pad |
+| JTAG_TMSC | 13 | Digital I/O | JTAG_TMSC |
+| JTAG_TCKC | 14 | Digital I/O | JTAG_TCKC |
+| RESET_N  | 21 | Digital input | Reset, active low. No internal pullup |
+| RF_N | 2 | RF I/O  | Negative RF input signal to LNA during RX Negative RF output signal from PA during TX |
+| RF_P | 1 | RF I/O | Positive RF input signal to LNA during RX Positive RF output signal from PA during TX |
+| RX_TX | 4 | RF I/O  | Optional bias pin for the RF LNA |
+| VDDS | 27 | Power | 1.8-V to 3.8-V main chip supply |
+| VDDS2 | 11 | Power | 1.8-V to 3.8-V GPIO supply |
+| VDDS_DCDC | 19 | Power | 1.8-V to 3.8-V DC/DC supply |
+| VDDR | 28 | Power | 1.7-V to 1.95-V supply, connect to output of internal DC/DC |
+| VDDR_RF | 31 | Power | 1.7-V to 1.95-V supply, connect to output of internal DC/DC |
+| VSS | 3, 7, 17, 20, 29  | Power | Ground |
+| X32K_Q1 | 5 | Analog I/O | 32-kHz crystal oscillator pin 1 |
+| X32K_Q2 | 6 | Analog I/O | 32-kHz crystal oscillator pin 2 |
+| X24M_N | 30 | Analog I/O | 24-MHz crystal oscillator pin 1 |
+| X24M_P | 31 | Analog I/O | 24-MHz crystal oscillator pin 2 |
+
 
 **1.2 - Let's find the hw peripherals**
 
