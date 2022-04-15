@@ -105,17 +105,11 @@ PN: MSP430FR2476 Mnf: Texas Instruments Datasheet: www.ti.com/lit/ds/symlink/msp
 
 Function and characteristics: accomodate data; save logs; SPI communication;
 
-**1.2.4 - External RTC**
-
-Function and characteristics: keeps track of the current time; low power; I2C communication;
-
-PN: DS3231S# Mnf: Maxim Integrated Datasheet: https://datasheets.maximintegrated.com/en/ds/DS3231.pdf
-
-**1.2.5 - Accelerometer**
+**1.2.4 - Accelerometer**
 
 Function and characteristics: main parameter to be monitored;
 
-**1.2.6 - Battery**
+**1.2.5 - Battery**
 
 Function and characteristics: 3.6 V; 
 
