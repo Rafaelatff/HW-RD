@@ -145,6 +145,9 @@ For 3D project -> HW-RD/tree/main/3D%20files
 
 Antenna guidelines: https://www.ti.com/lit/an/swra726/swra726.pdf
 
+Layout must have the rules according to the capability of the third party company that will manufacturer the PCB (example: https://www.griffuspcb.com.br/files/anexo1-34-parametros-de-processo-e-produto-rev-05.pdf). Impedance values for PCB tracks must follow recommendation of third party company that will manufacturer the PCB together with Saturn PCB toolkit. Since time is short, just Saturn PCB toolkit will be used.
+
+
 ## Step 3: Write some code!
 
 For CC1310 code -> HW-RD/tree/main/CC1310
