@@ -123,6 +123,12 @@ Used pins:
 
 Function and characteristics: accomodate data; save logs; SPI communication;
 
+Guidelines: 
+https://www.kingston.com/datasheets/SDCIT-specsheet-64gb_en.pdf
+https://www.st.com/resource/en/application_note/an5595-spc58xexspc58xgx-multimedia-card-via-spi-interface-stmicroelectronics.pdf
+
+microSD card connector PN: DM3C-SF / Manufacturer: Hirose Electric Co Ltd 
+
 **1.2.4 - Accelerometer**
 
 Function and characteristics: main parameter to be monitored;
