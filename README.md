@@ -50,6 +50,8 @@ https://training.ti.com/ti-simplelink-sub-1-ghz-wireless-solutions-iot-technical
 
 https://www.ti.com/design-resources/embedded-development/wireless-connectivity.html
 
+https://www.ti.com/lit/sg/swat016b/swat016b.pdf
+
 CC1310 User guide: https://www.ti.com/lit/ug/swcu117i/swcu117i.pdf
 
 CC1310 Datasheet: https://www.ti.com/lit/ds/symlink/cc1310.pdf
@@ -135,7 +137,7 @@ Function and characteristics: main parameter to be monitored;
 
 **1.2.5 - Battery**
 
-Function and characteristics: 3.6 V; 
+Function and characteristics: 3.6 V; Lithium batteries (ultra-low power);
 
 ## Step 2: It’s layout time
 
