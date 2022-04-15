@@ -56,6 +56,8 @@ CC1310 User guide: https://www.ti.com/lit/ug/swcu117i/swcu117i.pdf
 
 CC1310 Datasheet: https://www.ti.com/lit/ds/symlink/cc1310.pdf
 
+Xtal selection guideline: https://www.ti.com/lit/an/swra495i/swra495i.pdf
+
 **Pin mapping - RSM Package (VQFN-32)**
 
 | Pin name | Pin number | Type | Description | 
