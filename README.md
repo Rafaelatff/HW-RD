@@ -101,6 +101,24 @@ Function and characteristics: control and manage secondary tasks; comunicate wit
 
 PN: MSP430FR2476 Mnf: Texas Instruments Datasheet: www.ti.com/lit/ds/symlink/msp430fr2476.pdf
 
+Used pins:
+| Pin number | Port.Pin | Type/Peripheral | Description | 
+|------|------|------|------|
+| 1 | DVCC | Power | VDD |
+| 2 | SBW | JTAG/SBW | JTAG/SBW |
+| 3 | SBW | JTAG/SBW | JTAG/SBW |
+| 4 | P1.4 | UCA0SIMO | eUSCI_A0 SPI slave in/master out |
+| 5 | P1.5 | UCA0SOMI | eUSCI_A0 SPI slave out/master in |
+| 6 | P1.6 | UCA0CLK | eUSCI_A0 SPI clock input/output |
+| 7 | P1.7 | UCA0STE |  eUSCI_A0 SPI slave transmit enable |
+| 8 | P4.3 | GPIO | SPI_INT |
+| 37 | P3.5 | GPIO | I2C_INT |
+| 38 | P3.2 | UCB1SDA | eUSCI_B1 I2C data |
+| 39 | P3.6 | UCB1SCL | eUSCI_B1 I2C clock |
+| 46 | XOUT | Xtal | Crystal out |
+| 47 | XIN | Xtal | Crystal in |
+| 48 | DVSS | Power | GND |
+
 **1.2.3 - External memory or microSD card**
 
 Function and characteristics: accomodate data; save logs; SPI communication;
