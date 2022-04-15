@@ -4,79 +4,19 @@
 #include <assert.h> // to use asset function
 #include <stdio.h>
 
-
-int valordec;
-
 char message = 0;
-int escreve_RTC = 0;
-
-//RTC
-#define SLAVE_ADDR_RTC  0x68 //0110 1000 0x68
 char Data_In = 0;
 
-int Data_Cnt = 0;
-//size 20, goes from Packet[0] until Packet[19], being [0] reg addred + [0x00 to 0x12] data
-char Packet[20] = {0x00, //  Register address [0x00]
-                   0x00, // Seconds   [0x00]
-                   0x15, // Minutes   [0x01]
-                   0x03, // Hour      [0x02]
-                   0x02, // DOW       [0x03]
-                   0x16, // Day       [0x04]
-                   0x09, // Month     [0x05]
-                   0x92, // Year      [0x06]
-                   0x00, // A1S       [0x07]
-                   0x00, // A1M       [0x08]
-                   0x00, // A1H       [0x09]
-                   0x00, // A1D       [0x0A]
-                   0x00, // A2M       [0x0B]
-                   0x00, // A2H       [0x0C]
-                   0x00, // A2D       [0x0D]
-                   0b00010100, //Ctl  [0x0E]
-                   0b00010100, //C/S  [0x0F]
-                   0x00, // Agin Off  [0x10]
-                   0x00, // MSB Temp  [0x11]
-                   0x00};// LSB Temp  [0x12]
+
 int x = 19;
 int y=0;
+//size 20, goes from Data_In_Array[0] until Data_In_Array[19], being [0] reg addred + [0x00 to 0x12] data
 char Data_In_Array[20];
-
-// *******************************************DS3231*****************************************
-/*-------------------------------------Timekeeper Registers---------------------------------
- *|  Address | Bit 7 | Bit 6 | Bit 5 | Bit 4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 | Function | Range |
- *|    0x00  |   0   |      10 Seconds       |             Seconds           | Seconds  | 00-59 |
- *|    0x01  |   0   |      10 Minutes       |             Minutes           | Minutes  | 00-59 |
- *|    0x02  |   0   | 12/24 | H/AmPm|  10H  |              Hours            |  Hours   | 1-12 + AMn/PM or 00 -23
- *|    0x03  |   0   |   0   |   0   |   0   |   0   |     Day (DOW)         |   Day    | 1-7   |
- *|    0x04  |   0   |   0   |     10 Date   |               Date            |  Date    | 01-31 |
- *|    0x05  | Cent  |   0   |   0   |  10M  |              Month            | Mont/Cent| 01-12 + Cent
- *|    0x06  |            10 Year            |               Year            |  Year    | 00-99 |
- *|    0x07  | A1M1  |      10 Seconds       |             Seconds           | alarm1 S | 00-59 |
- *|    0x08  | A1M2  |      10 Minutes       |             Minutes           | alarm1 M | 00-59 |
- *|    0x09  | A1M3  | 12/24 | H/AmPm|  10H  |              Hours            | alarm1 H |
- *|    0x0A  |
- *|    0x0B  |
- *|    0x0C  |
- *|    0x0D  |
- *|    0x0E  |EOSCn | BBSQW | CONV  |  RS2   |  RS1  | INTCN |  A2IE |  A1IE |  Control |
- *|    0x0F  | OSF  |   0   |   0   |   0    | EN32k |  BSY  |  A2F  |  A1F  | Cont/Stat|
- *|    0x10  | SIGN | DATA  | DATA  |  DATA  | DATA  | DATA  | DATA  | DATA  | Agin Off |
- *|    0x11  | SIGN | DATA  | DATA  |  DATA  | DATA  | DATA  | DATA  | DATA  | MSB Temp |
- *|    0x12  | DATA | DATA  |   0   |   0    |   0   |   0   |   0   |   0   | LSB Temp |                                                       | RAM 56x8 |
- *------------------------------------------------------------------------------------------------
- *    //On the first application of power (VCC) or when a valid I2C
-      //address is written to the part (VBAT), the time and date
-      //registers are reset to 01/01/00 01 00:00:00 (DD/MM/YY DOW HH:MM:SS).
- *------------------------------------------------------------------------------------------------
-     //On an I2C START or address pointer incrementing to location 00h, the current time
-     //is transferred to a second set of registers. The
-     //time information is read from these secondary registers
- */
-
 
 int ACLK_clock;
 
-void start_I2C_B1(void);
-void SetDateHour(void);
+void I2C_B1_slave_config(void);
+void SPI_A0_config(void);
 int BCDtoDecimal(int data);
 int DecimalToBCD(int data); //not needed!
 void delay_ms(int time);
@@ -97,53 +37,11 @@ int main(void)
     PM5CTL0 &= ~LOCKLPM5;       //to apply the GPIO configurations disable the LOCKLPM5 bit in PM5CTL0
     //unlock the GPIO high-impedance mode by resetting the LOCKLPM5 bit
 
-    start_I2C_B1();
+    I2C_B1_slave_config(); // Config MSP as slave
 
     P1OUT |= BIT0; // LED1
 
-    SetDateHour(); // send Packet[] to RTC
-    //P1OUT &= ~BIT0; // LED1
-
-
     while (1){
-        // RECEBER OS 20 BYTES DO RTC E ALOCAR EM UM ARRAY
-        //char array_char[20];  //tamanho 20, vai de array[0] até array [19]
-
-
-        //-- Send Data from Master with initial register address 0x00
-        // it may not be needed
-
-        /*escreve_RTC =1;
-
-        UCB1I2CSA = SLAVE_ADDR_RTC;
-        UCB1CTLW0 |= UCTR;      // Put into TX mode
-        UCB1CTLW0 |= UCTXSTT;     // Generate START
-        //UCB1CTLW0 |= UCTR | UCTXSTT; // To put in RX mode and also generate START
-            while ((UCB1IFG & UCSTPIFG)==0){}  //UCSTPIFG - STOP condition interrupt flag
-        UCB1IFG &= ~UCSTPIFG;       // clear the stop flag
-        */
-
-        //-- Receive Data from slave with a READ message
-
-        escreve_RTC = 0;
-        UCB1TBCNT = 1;
-        UCB1CTLW0 &= ~UCTR;      // Put into RX mode
-        UCB1I2CSA = SLAVE_ADDR_RTC;
-        UCB1CTLW0 |= UCTXSTT;     // Generate START
-        while ((UCB1IFG & UCSTPIFG)==0){}
-        //while(!(UCB1IFG & UCTXIFG0));//Internet example
-        UCB1IFG &= ~UCSTPIFG;       // clear the stop flag
-        //while(UCB1CTLW0 & UCTXSTP);  //Internet example: wait for stop
-        // pelo que eu entendi, UCTXSTP eu tbm posso setar
-        // ou posso esperar receber (0 = stop)
-
-        y=0;
-
-        for (x=0;x==19;x++){
-               Data_In = Data_In_Array[x];
-               valordec = BCDtoDecimal(Data_In);
-
-        }
 
         __delay_cycles(78000);
         P1OUT ^= BIT0; // LED0
@@ -154,31 +52,11 @@ int main(void)
 __interrupt void EUSCI_B1_I2C_ISR(void){
     switch(UCB1IV){
     case 0x16:  // ID 16: RXIFG0 according to MSP430FR4xx and MSP430FR2xx family user's guide
-        //Data_In = UCB1RXBUF;    // Read data from RX buffer
-        P1OUT &= ~BIT0; // LED1
-        for (x=19;x==0;x--){
-            while (!(UCB1IFG & UCRXIFG0)); //CHECAR SE EU COLOQUEI REG CERTO E PROGRAMA NÃO VAI TRAVAR AQUI
-            //UCRXIFG0 = 0x1 = 0b0001  /* UCBxIFG Control Bits - UCRXIFG0: eUSCI_B receive interrupt flag 0 */
-            Data_In_Array[x] = UCB1RXBUF;
-        }
-        //while(UCB1CTLW0 & UCTXSTP); PELO QUE EU ENTENDI CHECA PELO STOP
+            //while (!(UCB1IFG & UCRXIFG0));
+            Data_In = UCB1RXBUF; // Read data from RX buffer
         break;
     case 0x18:  // ID 18: TXIFG0 according to MSP430FR4xx and MSP430FR2xx family user's guide
-        if(escreve_RTC==1){
-                    UCB1I2CSA == SLAVE_ADDR_RTC;
-                    if (Data_Cnt == (sizeof(Packet)-1)){
-                        UCB1TXBUF = Packet[Data_Cnt];
-                        Data_Cnt = 0;
-                    } else {
-                        UCB1TXBUF = Packet[Data_Cnt];
-                        Data_Cnt++;
-                    }
-                    //UCB1TXBUF = RTCmessage; //create a new for RTCregister
-                }
-                else if(escreve_RTC==0){
-                    UCB1TXBUF = message; //other slave in i2c
-                }
-                escreve_RTC=0;
+            UCB1TXBUF = message; // Send data from TX buffer
         break;
     default:
         break;
@@ -201,24 +79,7 @@ void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer_A (void)
     TA0CCR0 +=1; // Add Offset to TACCR0
 }
 
-void SetDateHour() //
-{
-    escreve_RTC =1;
 
-    UCB1CTLW0 |= UCTR;      // Put into TX mode
-    UCB1I2CSA = SLAVE_ADDR_RTC;
-    UCB1CTLW0 |= UCTXSTT;     // Generate START (this flag is cleared as soon as the complete address is sent)
-
-    //TODO1: Check, with oscilloscope, is Packet is really sent! yes[ ] / no [ ]
-
-    //TODO2: Select mask and go to 'Open declaration' (F3) to check mask for control bits on 'msp430fr2476.h' file
-        //UCSTPIFG = 0x0008 = 0b1000  /* UCBxIFG Control Bits - UCSTPIFG: STOP condition interrupt flag */
-        //TODO3 = This may be happening because Packet has no size declared 'char Packet[];'. Investigate.
-
-    //while ((UCB1IFG & UCSTPIFG)==0){}  //Stays in loop until R/W a stop condction (end of transmition);
-    //UCB1IFG &= ~UCSTPIFG;       // clear the stop flag
-    //P1OUT &= ~BIT0; // --> Stop condction isn't happening
-}
 
 int BCDtoDecimal (int data){
  // Convert from BCD to Decimal
@@ -234,18 +95,7 @@ int BCDtoDecimal (int data){
     // (((data/1000)<<8) | ((data/10)<<4) | (Decimal % 10));
 }
 
-int DecimalToBCD (int data){
- // Convert from Decimal to BCD
- // x % y   module operator: x mod y: produces the remainder when x is divided by y.
- // 59 mod 10 = 9 -> 59 = (10×5) + 9
-    int BCD = (((data/10)<<4) | (data % 10));
-    return BCD;
-    //Example decimal 52 -> 52/10 = 5 then 5 << 4 = 80 (00101 0000)
-    //then 80 | 2 (0101 0010) = 0x52
-}
-
-
-void start_I2C_B1(void){
+void I2C_B1_slave_config(void){
 
     /*   eUSCI_B Registers
      *      UCBxCTLW0 (eUSCI_Bx Control Register 0)
@@ -271,27 +121,20 @@ void start_I2C_B1(void){
      *          UCTXIFG3  0x2000 - eUSCI_B transmit interrupt flag 3
      *          UCBIT9IFG 0x4000 - Bit position 9 interrupt flag
      */
-        // Reading UCxRXBUF resets the receive error bits and UCRXIFG.
-        // Writing to the transmit data buffer clears UCTXIFG
-        // (Bit 1) UCTXIFG -> Transmit interrupt flag. UCTXIFG is set when UCBxTXBUF empty.
-            // 0 = no interrupt pending / 1 = interrupt pending
-        // (Bit 0) UCRXIFG -> Receive interrupt flag. UCRXIFG is set when UCBxRXBUF has received a
-            // complete character.0 = no interrupt pending / 1 = interrupt pending
 
     // always put the eUSCI module into its reset state
     UCB1CTLW0 = UCSWRST;                      //Put B1 in SW reset
 
-    //configure the eUSCI module as a synchronous I2C peripheral, master mode, using the SMCLK source
-    UCB1CTLW0 |= UCSSEL__SMCLK; // or UCSSEL_3 = SMCLK,
-    // The SMCLK is configured for 10MHz, so we must divide it down to meet the 100kHz I2C clock requirement
-    UCB1BRW = 10; // fSCL = SMCLK/10 = ~100kHz // set prescalar to 10
-
+    // slave config
     UCB1CTLW0 |= UCMODE_3; //put into I2C mode (others options configure the eUSCI as SPI communication)
-    UCB1CTLW0 |= UCMST; //set as master
-    //UCB1CTLW0 |= UCTR; //put into Tx mode (to write) --> Removed, since sometimes code also READ
+    UCB1CTLW0 |= UCSYNC; // Synchronous mode
+    UCB1CTLW0 &= ~UCMST; // set as slave
+
+    UCB1I2COA0 = 0x66; // Set slave address
+    UCB1I2COA0 |=UCGCEN; //The slave address defined in I2COA0 is enabled
 
     UCB1CTLW1 |= UCASTP_2; //Auto STOP mode -> UCASTP_2 = 0x8 = 0b1000 = 10 (bits 2 and 3 of UCBxCTLW1 register [0to15])
-    UCB1TBCNT = sizeof(Packet); // transfer buffer count = size of Packet array
+    UCB1TBCNT = 1; // transfer buffer count = size of Packet array
 
     //Config PIN SEL  - for UCB0SDA e UCB0SCL PxSELx = 01
     //SDA pin 14 (P1.2) - UCB0SDA
@@ -305,7 +148,11 @@ void start_I2C_B1(void){
     P3SEL0 |= BIT2 | BIT6;
     P3SEL1 &= ~(BIT2 | BIT6);
 
-    //Obs.: To set an interrupt for I2C (in case MSP is slave), set an ordinary GPIO;
+    //Obs.: To set an interrupt for I2C (in case MSP is slave), set an ordinary GPIO (P3.5);
+    P3SEL0 &= ~BIT5;
+    P3SEL1 &= ~BIT5;
+    P3DIR |= BIT5; // Set as Output
+    P3OUT &= ~BIT5; // Stay low
 
     PM5CTL0 &= ~LOCKLPM5;  // to apply the GPIO configurations disable the LOCKLPM5 bit in PM5CTL0
     UCB1CTLW0 &= ~UCSWRST;  //Take B1 out of SW RST
@@ -314,6 +161,11 @@ void start_I2C_B1(void){
     UCB1IE |= UCTXIE0;  // local enable for TX0
     UCB1IE |= UCRXIE0;  // local enable for RX0
     __enable_interrupt(); // enable maskables
+}
+
+
+void SPI_A0_config(void){
+    //To be continued;
 }
 
 void start_clock_sys(void){

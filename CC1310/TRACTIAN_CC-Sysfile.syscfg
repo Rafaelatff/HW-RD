@@ -32,16 +32,3 @@ iJTAG1.TDI.$suggestSolution  = "ball.16";
 iJTAG1.TDO.$suggestSolution  = "ball.15";
 iJTAG1.TMSC.$suggestSolution = "ball.13";
 iJTAG1.TCKC.$suggestSolution = "ball.14";
-
-///////////////////////////
-//summary.csv
-
-Pin#, PORT IO, Function, Direction
-24,DIO_11,GPIO27P,
-9,DIO_3,GPIO6P,
-26,DIO_13,I2C0SDA,
-25,DIO_12,I2C0SCL,
-16,DIO_6,JTAGTDI,
-15,DIO_5,JTAGTDO,
-13,JTAG_TMSC,JTAGTMSC,
-14,JTAG_TCKC,JTAGTCKC,
