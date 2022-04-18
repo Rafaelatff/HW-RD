@@ -157,6 +157,23 @@ GenerateClassCluster=0
 DocumentUniqueId=CBDKNKIV
 
 [Document8]
+DocumentPath=TRACTIAN_Low-Power-MCU.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=300
+AnnotationIndexControlEnabled=1
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=3
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=0
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=WKGORTUC
+
+[Document9]
 DocumentPath=TRACTIAN-HW-Challenge.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -173,22 +190,9 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=DIFJBPLY
 
-[Document9]
-DocumentPath=TRACTIAN_Low-Power-MCU.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=300
-AnnotationIndexControlEnabled=1
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=3
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
+[GeneratedDocument1]
+DocumentPath=Project Outputs for TRACTIAN-HW-Challenge\Design Rule Check - TRACTIAN-HW-Challenge.html
 DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=WKGORTUC
 
 [Configuration1]
 Name=Sources
